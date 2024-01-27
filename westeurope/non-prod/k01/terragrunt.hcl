@@ -35,7 +35,7 @@ generate "backend" {
 EOT
 }
 
-generate "providers" {
+generate "global_providers" {
   path      = "_providers.tf"
   if_exists = "overwrite"
   contents  = <<-EOT

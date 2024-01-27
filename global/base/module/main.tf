@@ -28,7 +28,7 @@ resource "azurerm_dns_zone" "this" {
   resource_group_name = azurerm_resource_group.this.name
 }
 
-output "hosted_zone" {
+output "global_hosted_zone" {
   value = azurerm_dns_zone.this.name
 }
 
@@ -36,7 +36,7 @@ output "location" {
   value = azurerm_resource_group.this.location
 }
 
-output "resource_group_name" {
+output "global_resource_group_name" {
   value = azurerm_resource_group.this.name
 }
 

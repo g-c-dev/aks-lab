@@ -20,6 +20,6 @@ inputs = {
   vnet_location       = dependency.cluster_base.outputs.location
   use_for_each        = true
   vnet_name           = "vnet-${include.parent.inputs.cluster_name}"
-  subnet_names        = [ "snet-${include.parent.inputs.cluster_name}" ]
+  subnet_names        = [ "snet-cluster-network" ]
   subnet_prefixes     = [ "10.0.1.0/24" ]
 }

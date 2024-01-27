@@ -35,12 +35,20 @@ inputs = {
   kubernetes_version   = "1.27.7"
   orchestrator_version = "1.27.7"
 
-  network_plugin = "azure"
-  network_policy = "azure"
+  network_plugin             = "azure"
+  network_policy             = "azure"
+  network_plugin_mode        = "overlay"
+  net_profile_service_cidr   = "10.254.0.0/16"
+  net_profile_dns_service_ip = "10.254.0.254"
+
+  agents_max_pods  = 250
+  agents_max_count = 10
+  agents_min_count = 1
 
   rbac_aad                          = true
   rbac_aad_azure_rbac_enabled       = true
   role_based_access_control_enabled = true
+  rbac_aad_managed                  = true
 
   temporary_name_for_rotation = "rotating"
 
