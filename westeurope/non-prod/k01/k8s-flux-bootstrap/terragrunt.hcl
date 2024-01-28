@@ -32,6 +32,7 @@ dependency "cluster_base" {
     resource_group_name = "to-be-defined"
     tenant_id           = "to-be-defined"
     subscription_id     = "to-be-defined"
+    clusterFQDN         = "to-be-defined"
   }
 }
 
@@ -62,6 +63,7 @@ inputs = {
     "dnsManagementAzureResourceGroup" = dependency.cluster_base.outputs.resource_group_name
     "azureTenantId"                   = dependency.cluster_base.outputs.tenant_id
     "azureSubscriptionId"             = dependency.cluster_base.outputs.subscription_id
+    "clusterFQDN"                     = dependency.cluster_base.outputs.clusterFQDN
   }
 }
 

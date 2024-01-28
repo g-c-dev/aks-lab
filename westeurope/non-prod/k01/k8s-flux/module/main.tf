@@ -15,4 +15,5 @@ resource "helm_release" "flux" {
   repository       = "https://fluxcd-community.github.io/helm-charts"
   namespace        = var.flux_namespace
   create_namespace = true
+
 }

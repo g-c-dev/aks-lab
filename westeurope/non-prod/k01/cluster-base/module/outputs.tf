@@ -34,3 +34,6 @@ output "uai_dns_id" {
   value = azurerm_user_assigned_identity.dns.id
 }
 
+output "clusterFQDN" {
+  value = azurerm_dns_zone.this.name
+}
