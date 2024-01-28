@@ -6,6 +6,15 @@ variable "github_repo_name" {
   type = string
 }
 
+variable "docker_io_username" {
+  type = string
+}
+
+variable "docker_io_token" {
+  type      = string
+  sensitive = true
+}
+
 variable "key_vault_id" {
   type = string
 }
@@ -24,11 +33,15 @@ variable "repository_config" {
   default = {
     refresh   = "3m"
     reference = "main"
-    path      = "cluster-config"
+    path      = "helm"
   }
 }
 
 variable "github_com_known_host" {
   type    = string
   default = "github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg="
+}
+
+variable "flux_cluster_metadata" {
+  type = map(string)
 }

@@ -20,6 +20,6 @@ resource "azurerm_dns_ns_record" "delegation" {
 resource "azurerm_role_assignment" "dns" {
   principal_id = azurerm_user_assigned_identity.dns.principal_id
   # format -> /subscriptions/42cefed1-e79f-4f0d-828e-19ef5b9cd304/resourceGroups/rg-terraform-state
-  scope                = "/subscriptions/${data.azurerm_client_config.this.subscription_id}/resourceGroups/${var.global_resource_group_name}"
+  scope                = "/subscriptions/${data.azurerm_client_config.this.subscription_id}/resourceGroups/${var.resource_group_name}"
   role_definition_name = "DNS Zone Contributor"
 }
