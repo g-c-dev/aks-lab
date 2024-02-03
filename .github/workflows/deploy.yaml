@@ -38,11 +38,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: g-c-dev/aks-lab/.github/workflows/bootstrap-runner.yaml@main
-
       - uses: actions/checkout@v3
         with:
           persist-credentials: true
+
+      - uses: ./.github/workflows/bootstrap-runner.yaml
+        with:
+          azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
+          azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Plan
         uses: gruntwork-io/terragrunt-action@v2
@@ -58,11 +63,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: g-c-dev/aks-lab/.github/workflows/bootstrap-runner.yaml@main
-
       - uses: actions/checkout@v3
         with:
           persist-credentials: true
+
+      - uses: ./.github/workflows/bootstrap-runner.yaml
+        with:
+          azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
+          azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Apply
         uses: gruntwork-io/terragrunt-action@v2
