@@ -43,7 +43,7 @@ inputs = {
 
   agents_max_pods  = 250
   agents_max_count = 10
-  agents_min_count = 1
+  agents_min_count = 2
 
   rbac_aad                          = true
   rbac_aad_azure_rbac_enabled       = true
