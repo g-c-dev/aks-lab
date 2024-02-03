@@ -6,7 +6,7 @@ on:
       cluster_path:
         description: "repository path representing the cluster"
         type: string
-        default: "westeurope/non-prod/k01"
+        default: "./westeurope/non-prod/k01"
       action:
         description: "action to perform"
         type: choice
@@ -50,6 +50,7 @@ jobs:
 
       - name: Terragrunt ${{ inputs.action }}
         shell: bash
+        working-directory: ${{ inputs.cluster_path }}
         run: |
           terragrunt run-all ${{ inputs.action }} --terragrunt-non-interactive
         env:
