@@ -7,15 +7,6 @@ terraform {
   source = ".//module"
 }
 
-dependency "cluster_aks" {
-  config_path = "../cluster-aks/"
-
-  mock_outputs = {
-    host                   = "https://to-be-defined"
-    cluster_ca_certificate = base64encode("to-be-defined")
-  }
-}
-
 locals {
   kubelogin_args = [
     "get-token",
@@ -26,7 +17,18 @@ locals {
     "--login",
     "azurecli"
   ]
+  fake_ca_cert = run_cmd("curl", "-s", "-o", "-", "https://raw.githubusercontent.com/richmoore/qt-examples/master/ssl-examples/add-custom-ca/cacert.pem")
 }
+
+dependency "cluster_aks" {
+  config_path = "../cluster-aks/"
+
+  mock_outputs = {
+    host                   = "https://to-be-defined"
+    cluster_ca_certificate = base64encode(local.fake_ca_cert)
+  }
+}
+
 
 generate "providers" {
   path      = "_providers.module.tf"
