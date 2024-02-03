@@ -17,7 +17,7 @@ locals {
     "--login",
     "azurecli"
   ]
-  fake_ca_cert = run_cmd("curl", "-s", "-o", "-", "https://raw.githubusercontent.com/richmoore/qt-examples/master/ssl-examples/add-custom-ca/cacert.pem")
+  fake_ca_cert = run_cmd("--terragrunt-quiet", "curl", "-s", "-o", "-", "https://raw.githubusercontent.com/richmoore/qt-examples/master/ssl-examples/add-custom-ca/cacert.pem")
 }
 
 dependency "cluster_aks" {
