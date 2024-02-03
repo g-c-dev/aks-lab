@@ -19,7 +19,7 @@ module "naming" {
 }
 
 resource "azurerm_resource_group" "this" {
-  name     = module.naming.resource_group.name_unique
+  name     = "global-${module.naming.resource_group.name_unique}"
   location = var.location
 }
 

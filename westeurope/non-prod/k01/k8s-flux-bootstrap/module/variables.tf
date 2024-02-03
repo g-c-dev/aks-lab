@@ -24,7 +24,7 @@ variable "flux_namespace" {
   default = "flux-system"
 }
 
-variable "repository_config" {
+variable "repository_helm" {
   type = object({
     refresh   = string
     reference = string
@@ -34,6 +34,19 @@ variable "repository_config" {
     refresh   = "3m"
     reference = "main"
     path      = "helm"
+  }
+}
+
+variable "repository_config" {
+  type = object({
+    refresh   = string
+    reference = string
+    path      = string
+  })
+  default = {
+    refresh   = "3m"
+    reference = "main"
+    path      = "post-helm"
   }
 }
 

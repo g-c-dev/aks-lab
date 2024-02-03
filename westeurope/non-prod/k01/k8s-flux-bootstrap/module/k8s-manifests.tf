@@ -19,7 +19,32 @@ YAML
 }
 
 # create flux kustomization
-resource "kubectl_manifest" "kustomization" {
+resource "kubectl_manifest" "helm_packages" {
+  yaml_body = <<-YAML
+  apiVersion: kustomize.toolkit.fluxcd.io/v1
+  kind: Kustomization
+  metadata:
+    name: cluster-components
+    namespace: "${var.flux_namespace}"
+  spec:
+    interval: "${var.repository_helm.refresh}"
+    sourceRef:
+      kind: GitRepository
+      name: k8s-config
+    path: "${var.repository_helm.path}"
+    prune: true
+    timeout: 10m
+    wait: true
+    postBuild:
+      substituteFrom:
+        - kind: ConfigMap
+          name: flux-cluster-metadata
+          # Use this ConfigMap if it exists, but proceed if it doesn't.
+          optional: true
+YAML
+}
+
+resource "kubectl_manifest" "helm_post_install" {
   yaml_body = <<-YAML
   apiVersion: kustomize.toolkit.fluxcd.io/v1
   kind: Kustomization
@@ -33,7 +58,9 @@ resource "kubectl_manifest" "kustomization" {
       name: k8s-config
     path: "${var.repository_config.path}"
     prune: true
-    timeout: 1m
+    timeout: 10m
+    dependsOn:
+      - name: cluster-components
     postBuild:
       substituteFrom:
         - kind: ConfigMap

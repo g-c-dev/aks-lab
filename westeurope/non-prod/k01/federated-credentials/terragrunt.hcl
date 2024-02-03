@@ -10,7 +10,7 @@ terraform {
 dependency "cluster_base" {
   config_path  = "../cluster-base"
   mock_outputs = {
-    uai_dns_id          = "to-be-defined"
+    uai_dns_id          = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.ManagedIdentity/userAssignedIdentities/userAssignedIdentityValue"
     resource_group_name = "to-be-defined"
   }
 }
