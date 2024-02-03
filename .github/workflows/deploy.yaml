@@ -20,8 +20,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  tf_version: '1.5.5'
-  tg_version: '0.54.20'
   ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
   ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
   ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
@@ -50,12 +48,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Plan
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ inputs.cluster_path }}
-          tg_command: 'run-all plan --terragrunt-non-interactive'
+        shell: bash
+        run: |
+          terragrunt run-all plan --terragrunt-non-interactive
 
   apply:
     if: ${{ inputs.apply == 'yes' }}
@@ -74,11 +69,7 @@ jobs:
           azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-
       - name: Apply
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ inputs.cluster_path }}
-          tg_command: 'run-all apply --terragrunt-non-interactive'
+        shell: bash
+        run: |
+          terragrunt run-all plan --terragrunt-non-interactive
