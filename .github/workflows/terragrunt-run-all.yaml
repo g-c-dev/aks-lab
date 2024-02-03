@@ -1,4 +1,4 @@
-name: "Deploy Infrastructure"
+name: "Terragrunt Infrastructure"
 
 on:
   workflow_dispatch:
@@ -7,13 +7,15 @@ on:
         description: "repository path representing the cluster"
         type: string
         default: "westeurope/non-prod/k01"
-      apply:
-        description: "apply directly the changes"
+      action:
+        description: "action to perform"
         type: choice
         options:
-          - yes
-          - no
-        default: no
+          - plan
+          - apply
+          - init
+          - destroy
+        default: "plan"
 
 concurrency:
   group: ${{ github.repository }}-${{ github.ref_name }}
@@ -30,9 +32,8 @@ permissions:
   contents: read
 
 jobs:
-  plan:
-    if: ${{ inputs.apply != 'yes' }}
-    name: "Terragrunt RunAll Plan"
+  run_all:
+    name: "Terragrunt RunAll: ${{ inputs.action }}"
     runs-on: ubuntu-latest
 
     steps:
@@ -47,29 +48,7 @@ jobs:
           azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Plan
+      - name: Terragrunt ${{ inputs.action }}
         shell: bash
         run: |
-          terragrunt run-all plan --terragrunt-non-interactive
-
-  apply:
-    if: ${{ inputs.apply == 'yes' }}
-    name: "Terragrunt RunAll Apply"
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: true
-
-      - uses: ./.github/actions/bootstrap-runner
-        with:
-          azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
-          azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-          azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Apply
-        shell: bash
-        run: |
-          terragrunt run-all plan --terragrunt-non-interactive
+          terragrunt run-all ${{ inputs.action }} --terragrunt-non-interactive
