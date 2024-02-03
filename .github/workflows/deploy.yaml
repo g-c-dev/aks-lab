@@ -35,7 +35,7 @@ jobs:
   plan:
     if: ${{ inputs.apply != 'yes' }}
     name: "Plan infrastructure"
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: ./.github/actions/bootstrap-runner
@@ -55,7 +55,7 @@ jobs:
   apply:
     if: ${{ inputs.apply == 'yes' }}
     name: "Apply infrastructure"
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: ./.github/actions/bootstrap-runner
