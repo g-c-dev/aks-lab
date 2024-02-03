@@ -1,0 +1,73 @@
+name: "Deploy Infrastructure"
+
+on:
+  workflow_dispatch:
+    inputs:
+      cluster_path:
+        description: "repository path representing the cluster"
+        type: string
+        default: "westeurope/non-prod/k01"
+      apply:
+        description: "apply directly the changes"
+        type: choice
+        options:
+          - yes
+          - no
+        default: no
+
+concurrency:
+  group: ${{ github.repository }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  tf_version: '1.5.5'
+  tg_version: '0.54.20'
+  ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+  ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+  ARM_USE_OIDC: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  plan:
+    if: ${{ inputs.apply != 'yes' }}
+    name: "Plan infrastructure"
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: ./.github/actions/bootstrap-runner
+
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Plan
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ inputs.cluster_path }}
+          tg_command: 'run-all plan --terragrunt-non-interactive'
+
+  apply:
+    if: ${{ inputs.apply == 'yes' }}
+    name: "Apply infrastructure"
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: ./.github/actions/bootstrap-runner
+
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Apply
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ inputs.cluster_path }}
+          tg_command: 'run-all apply --terragrunt-non-interactive'

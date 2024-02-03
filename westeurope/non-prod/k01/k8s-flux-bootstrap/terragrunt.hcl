@@ -12,7 +12,7 @@ locals {
   github_repo_owner  = get_env("GITHUB_OWNER", "g-c-dev")
   github_repo_name   = get_env("GITHUB_REPOSITORY", "aks-lab-gitops")
   docker_io_username = get_env("DOCKERIO_USER", "gchiesa")
-  docker_io_token    = get_env("DOCKERIO_TOKEN")
+  docker_io_token    = get_env("DOCKERIO_TOKEN", "")
   kubelogin_args     = [
     "get-token",
     "--environment",

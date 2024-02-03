@@ -1,0 +1,40 @@
+name: "Bootstrap GitHub Runner"
+description: "Install the required tooling on the GitHub Runner"
+
+on:
+  workflow_call:
+    secrets: inherit
+
+jobs:
+  bootstrap-runner:
+    name: "Bootstrap GitHub Runner"
+    runs-on: [ubuntu-latest]
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        persist-credentials: true
+
+    - uses: azure/setup-helm@v3
+      with:
+        version: v3.13.3
+
+    #    - uses: hashicorp/setup-terraform@v2
+    #      with:
+    #        terraform_version: 1.5.5
+    #        terraform_wrapper: false
+
+    - uses: azure/setup-kubectl@v3
+
+    - name: Install kubelogin
+      shell: bash
+      run: |
+        wget https://github.com/Azure/kubelogin/releases/download/v0.1.0/kubelogin-linux-amd64.zip
+        unzip kubelogin-linux-amd64.zip
+        sudo mv bin/linux_amd64/kubelogin /usr/bin
+
+    - name: Login to Azure CLI
+      uses: azure/login@v1
+      with:
+        client-id: ${{ vars.AZURE_CLIENT_ID }}
+        tenant-id: ${{ vars.AZURE_TENANT_ID }}
+        subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
