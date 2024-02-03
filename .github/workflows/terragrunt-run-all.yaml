@@ -52,3 +52,5 @@ jobs:
         shell: bash
         run: |
           terragrunt run-all ${{ inputs.action }} --terragrunt-non-interactive
+        env:
+          GITHUB_TOKEN: ${{ secrets.gh_pat }}
