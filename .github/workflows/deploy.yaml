@@ -42,7 +42,7 @@ jobs:
         with:
           persist-credentials: true
 
-      - uses: ./.github/workflows/bootstrap-runner.yaml
+      - uses: ./.github/actions/bootstrap-runner
         with:
           azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
           azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
@@ -67,7 +67,7 @@ jobs:
         with:
           persist-credentials: true
 
-      - uses: ./.github/workflows/bootstrap-runner.yaml
+      - uses: ./.github/actions/bootstrap-runner
         with:
           azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
           azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
