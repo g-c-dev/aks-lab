@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: g-c-dev/aks-lab/.github/workflows/bootstrap-runner.yaml
+      - uses: g-c-dev/aks-lab/.github/workflows/bootstrap-runner.yaml@main
 
       - uses: actions/checkout@v3
         with:
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: g-c-dev/aks-lab/.github/workflows/bootstrap-runner.yaml
+      - uses: g-c-dev/aks-lab/.github/workflows/bootstrap-runner.yaml@main
 
       - uses: actions/checkout@v3
         with:

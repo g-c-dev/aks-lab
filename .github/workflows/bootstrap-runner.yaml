@@ -3,7 +3,6 @@ description: "Install the required tooling on the GitHub Runner"
 
 on:
   workflow_call:
-    secrets: inherit
 
 jobs:
   bootstrap-runner:
