@@ -70,6 +70,33 @@ resource "kubectl_manifest" "helm_post_install" {
 YAML
 }
 
+resource "kubectl_manifest" "tenants" {
+  yaml_body = <<-YAML
+  apiVersion: kustomize.toolkit.fluxcd.io/v1
+  kind: Kustomization
+  metadata:
+    name: cluster-tenants
+    namespace: "${var.flux_namespace}"
+  spec:
+    interval: "${var.repository_tenants.refresh}"
+    sourceRef:
+      kind: GitRepository
+      name: k8s-config
+    path: "${var.repository_tenants.path}"
+    prune: true
+    timeout: 10m
+    dependsOn:
+      - name: cluster-components
+    postBuild:
+      substituteFrom:
+        - kind: ConfigMap
+          name: flux-cluster-metadata
+          # Use this ConfigMap if it exists, but proceed if it doesn't.
+          optional: true
+YAML
+}
+
+
 # ssh deploy key
 resource "kubectl_manifest" "git_secret" {
   yaml_body = <<-YAML
