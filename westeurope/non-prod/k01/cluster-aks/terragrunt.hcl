@@ -44,6 +44,7 @@ inputs = {
   agents_max_pods  = 250
   agents_max_count = 10
   agents_min_count = 2
+  agents_size      = "Standard_D4as_v5"
 
   rbac_aad                          = true
   rbac_aad_azure_rbac_enabled       = true
