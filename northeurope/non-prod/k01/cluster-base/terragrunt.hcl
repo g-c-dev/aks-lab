@@ -22,7 +22,7 @@ dependency "global_resource" {
   config_path = "${get_repo_root()}/global/base/"
 
   mock_outputs = {
-    location                   = "westeurope"
+    location                   = "northeurope"
     global_hosted_zone         = "to-be-defined"
     global_resource_group_name = "to-be-defined"
   }

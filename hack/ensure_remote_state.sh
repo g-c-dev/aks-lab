@@ -25,7 +25,7 @@ az group create --name $resource_group_name --location "westeurope" \
 az storage account create -n $storage_account_name -g $resource_group_name \
   --subscription $subscription_id \
   --sku "Standard_LRS" \
-  --location "westeurope" \
+  --location "northeurope" \
   --min-tls-version TLS1_2 \
   --query "id" --output tsv \
   2>/dev/null

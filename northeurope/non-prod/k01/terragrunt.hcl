@@ -1,6 +1,6 @@
 locals {
   cluster_name         = basename(get_parent_terragrunt_dir())
-  state_file_container = "non-prod-westeurope-${basename(get_terragrunt_dir())}"
+  state_file_container = "non-prod-northeurope-${basename(get_terragrunt_dir())}"
   resource_group_name  = "rg-${local.cluster_name}"
 }
 

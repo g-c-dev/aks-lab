@@ -11,7 +11,7 @@ dependency "cluster_base" {
   config_path  = "../cluster-base"
   mock_outputs = {
     resource_group_name = include.parent.inputs.resource_group_name
-    location            = "westeurope"
+    location            = "northeurope"
   }
 }
 

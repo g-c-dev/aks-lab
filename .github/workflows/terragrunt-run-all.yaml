@@ -6,7 +6,7 @@ on:
       cluster_path:
         description: "repository path representing the cluster"
         type: string
-        default: "./westeurope/non-prod/k01"
+        default: "./northeurope/non-prod/k01"
       action:
         description: "action to perform"
         type: choice
