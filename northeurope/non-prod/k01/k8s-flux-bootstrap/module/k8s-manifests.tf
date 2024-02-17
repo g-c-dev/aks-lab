@@ -120,6 +120,8 @@ resource "kubectl_manifest" "flux_cluster_metadata" {
   metadata:
     name: flux-cluster-metadata
     namespace: "${var.flux_namespace}"
+    annotations:
+      replicator.v1.mittwald.de/replicate-to: "*"
   data: ${jsonencode(var.flux_cluster_metadata)}
 YAML
 }
