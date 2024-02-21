@@ -137,12 +137,6 @@ locals {
         "password" = var.docker_io_token
         "email"    = "jdoe@example.com"
         "auth"     = base64encode("${var.docker_io_username}:${var.docker_io_token}")
-      },
-      "https://index.docker.io/v1/" = {
-        "username" = var.docker_io_username
-        "password" = var.docker_io_token
-        "email"    = "jdoe@example.com"
-        "auth"     = base64encode("${var.docker_io_username}:${var.docker_io_token}")
       }
     }
   }
